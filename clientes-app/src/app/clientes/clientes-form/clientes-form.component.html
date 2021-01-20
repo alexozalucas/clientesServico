@@ -4,14 +4,16 @@
 </ol>
 
 <div class="container-fluid">
-    <form>
+    <form #clienteForm="ngForm" (ngSubmit) = "onSubmit()">
+
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>
                         ID:
                     </label>
-                    <input type="text" class="form-control" disabled="true" />
+                    <input type="text" class="form-control" disabled="true" [ngModel]="cliente.Id"
+                     name="Id" />
                 </div>
             </div>
 
@@ -20,7 +22,8 @@
                     <label>
                         Data Cadastro:
                     </label>
-                    <input type="text" class="form-control" disabled="true" />
+                    <input type="text" class="form-control" disabled="true" [ngModel]="cliente.dateRegister"
+                        name="dateRegister" />
                 </div>
             </div>
 
@@ -33,7 +36,8 @@
                     <label>
                         Nome: *
                     </label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" [(ngModel)]="cliente.name" name="name" />
+
                 </div>
             </div>
 
@@ -42,7 +46,7 @@
                     <label>
                         CPF: *
                     </label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" [(ngModel)]="cliente.cpf" name="cpf" />
                 </div>
             </div>
 
@@ -50,7 +54,7 @@
 
         <div class="row">
             <div class="col-md-2">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success" > 
                     <i class="fa fa-save"></i> Salvar
                 </button>
             </div>
