@@ -1,8 +1,12 @@
 package com.projeto.vendas.model.Controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +23,7 @@ import com.projeto.vendas.model.repository.ClientRepository;
 
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin("*")
 public class ClientController {
 
 	@Autowired
@@ -26,15 +31,15 @@ public class ClientController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Client salve(@RequestBody @Validated Client client) {
-
+	public Client salve(@RequestBody @Valid Client client) {
+	
 		return repository.save(client);
 	}
 
 	@GetMapping("{id}")
 	public Client getClientById(@PathVariable Integer id) {
 
-		return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "cliente não encontrado"));
 
 	}
 
@@ -51,7 +56,7 @@ public class ClientController {
 	
 	
 	@PutMapping("{id}")	
-	public Client updateClient(@PathVariable Integer id, @RequestBody Client updatedClient ) {
+	public Client updateClient(@PathVariable Integer id, @RequestBody @Valid Client updatedClient ) {
 		
 		
 		if(repository.existsById(id)) {
@@ -59,12 +64,19 @@ public class ClientController {
 			 
 		} else {
 						
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 	"Cliente não encontrado");
 		}
 		
 				
 		return updatedClient;
 		
 	}
+	
+	@GetMapping	
+	public List<Client> obterTodos(){
+		
+		return repository.findAll();
+	}
+	
 
 }

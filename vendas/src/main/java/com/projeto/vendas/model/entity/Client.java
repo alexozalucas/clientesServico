@@ -8,9 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.NotNull;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,10 +33,12 @@ public class Client {
 	private Integer id;
 
 	@Column(name = "name", nullable = false)
+	@NotEmpty (message = "{campo.nome.obrigatorio}")
 	private String name;
 
 	@Column(name = "cpf", nullable = false)
-	@NotNull	
+	@NotNull (message = "{campo.cpf.obrigatorio}")	
+	@CPF (message = "{campo.cpf.invalido}")	
 	private String cpf;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
