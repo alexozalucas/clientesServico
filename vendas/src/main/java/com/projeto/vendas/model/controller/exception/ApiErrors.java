@@ -1,4 +1,4 @@
-package com.projeto.vendas.model.Controller.exception;
+package com.projeto.vendas.model.controller.exception;
 
 
 

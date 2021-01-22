@@ -1,4 +1,4 @@
-package com.projeto.vendas.model.Controller;
+package com.projeto.vendas.model.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.projeto.vendas.model.Controller.exception.ApiErrors;
+import com.projeto.vendas.model.controller.exception.ApiErrors;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {

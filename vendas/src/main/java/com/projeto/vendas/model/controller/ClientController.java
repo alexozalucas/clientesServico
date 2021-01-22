@@ -1,4 +1,4 @@
-package com.projeto.vendas.model.Controller;
+package com.projeto.vendas.model.controller;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class ClientController {
 			 
 		} else {
 						
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 	"Cliente não encontrado");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado");
 		}
 		
 				
