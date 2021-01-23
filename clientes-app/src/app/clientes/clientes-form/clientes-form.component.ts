@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ClientesModule } from '../clientes.module';
 import { Cliente } from '../cliente';
 import { ClientesService } from 'src/app/clientes.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+import { url } from 'inspector';
 
 
 @Component({
@@ -25,35 +27,66 @@ export class ClientesFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    let params = this.activatedRouter.params;
-    if (oarams && params.getValue && params.value.id) {
+    let params: Observable<Params> = this.activatedRouter.params
+    params.subscribe(urlParams => {
+      this.id = urlParams['id'];
+      if(this.id){
+        this.service
+        .getClientesById(this.id)
+        .subscribe(
+          response => this.cliente = response
+          , reject => this.cliente = new Cliente()          
+        )
+
+      }
+
+    })
+
+   /* if (params && params.value && params.value.id) {
       this.id = params.value.id;
       this.service
         .getClientesById(this.id)
-        .subscribe(response => {
-          this.cliente = response;
-        } , reject => {
-
-          }
+        .subscribe(
+          response => this.cliente = response
+          , reject => this.cliente = new Cliente()
         )
-    }
+    }*/
 
 
   }
 
+
+  // Metodo para atualizar e salvar cliente no Clientes-form.Component.html
   onSubmit() {
-    this.service.salvar(this.cliente)
-      .subscribe(response => {
-        this.success = true;
-        this.errors = null;
-        this.cliente = response;
-        console.log(response);
 
-      }, errorResponse => {
-        this.errors = errorResponse.error.erros;
-        this.success = false;
-      })
+    if (this.cliente.id) {
 
+      this.service.atualizar(this.cliente)
+        .subscribe(response => {
+          this.success = true;
+          this.errors = null;
+          this.cliente = response;
+        }, reject => {
+          this.errors = reject.error.erros;
+          this.success = false;
+
+        })
+
+    } else {
+
+      this.service.salvar(this.cliente)
+        .subscribe(response => {
+          this.success = true;
+          this.errors = null;
+          this.cliente = response;
+
+
+        }, errorResponse => {
+          this.errors = errorResponse.error.erros;
+          this.success = false;
+        })
+
+    }
   }
 
 
