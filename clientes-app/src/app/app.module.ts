@@ -10,6 +10,7 @@ import { ClientesService } from './clientes.service'
 import { HttpClientModule } from '@angular/common/http';
 
 import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.module';
+import { ServicoPrestadoService } from './servico-prestado.service';
 
 
 @NgModule({
@@ -24,10 +25,12 @@ import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.modul
     TemplateModule,
     ClientesModule,
     HttpClientModule,
-    ServicoPrestadoModule
+    ServicoPrestadoModule,
+    
+
 
   ],
-  providers: [ClientesService],
+  providers: [ClientesService, ServicoPrestadoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
