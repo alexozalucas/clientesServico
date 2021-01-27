@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/servicos-prestados")
-@CrossOrigin("*")
 @RequiredArgsConstructor
 public class ServiceProvidedController {
 	
@@ -44,7 +44,7 @@ public class ServiceProvidedController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ServiceProvided salve(@RequestBody ServiceProvidedDTO dto) {
+	public ServiceProvided salve(@RequestBody @Valid ServiceProvidedDTO dto) {
 		
 		LocalDate data = LocalDate.parse(dto.getDate(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		Integer idClient = dto.getIdClient();
