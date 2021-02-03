@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Cliente } from './clientes/cliente';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import {environment} from '../environments/environment'
+import { environment } from '../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientesService {
 
-  apiURL: string = environment.apiURLBase+ '/api/clientes' ;
+  apiURL: string = environment.apiURLBase + '/api/clientes';
 
   constructor(private http: HttpClient) { }
 
@@ -30,7 +30,7 @@ export class ClientesService {
     return this.http.get<any>(`${this.apiURL}/${id}`);
   }
 
-  deletar(cliente: Cliente): Observable<any>{
+  deletar(cliente: Cliente): Observable<any> {
     return this.http.delete<any>(`${this.apiURL}/${cliente.id}`);
   }
 

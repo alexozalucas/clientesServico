@@ -9,13 +9,25 @@ import org.springframework.stereotype.Service;
 
 import com.projeto.vendas.model.entity.Usuario;
 import com.projeto.vendas.model.repository.UsuarioRepository;
+import com.projeto.vendas.service.exception.UsuarioCadastradoException;
 
 @Service
 public class UsuarioService implements UserDetailsService{
 
 	@Autowired
 	private UsuarioRepository repository;
-	
+	    
+
+    public Usuario salvar(Usuario usuario){
+        boolean exists = repository.existsByUsername(usuario.getUsername());
+        if(exists){
+            throw new UsuarioCadastradoException(usuario.getUsername());
+        }
+        return repository.save(usuario);
+    }
+
+
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = repository.findByUsername(username)
@@ -27,5 +39,6 @@ public class UsuarioService implements UserDetailsService{
 				.roles("USER")
 				.build();
 	}
+	
 
 }

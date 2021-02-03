@@ -9,22 +9,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.projeto.vendas.model.entity.Usuario;
-import com.projeto.vendas.model.repository.UsuarioRepository;
+import com.projeto.vendas.service.UsuarioService;
+import com.projeto.vendas.service.exception.UsuarioCadastradoException;
 
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
-	
+
 	@Autowired
-	private UsuarioRepository repository;
+	private UsuarioService service;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void salvar(@RequestBody @Valid Usuario usuario) {
 		
-		repository.save(usuario);
+		try {
+			service.salvar(usuario);
+			
+		}catch (UsuarioCadastradoException e) {
+			  throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+		}
+		
 		
 	}
 

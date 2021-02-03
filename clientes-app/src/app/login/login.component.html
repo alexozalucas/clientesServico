@@ -1,4 +1,4 @@
-<div class="bg-primary" >
+<div class="bg-primary">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
@@ -17,24 +17,20 @@
                                     </div>
 
                                     <div class="alert alert-danger" *ngFor="let erro of errors">
-                                    {{ erro }}
+                                        {{ erro }}
                                     </div>
 
-                                    <form #loginForm="ngForm" (submit)="onSubmit();">
+                                    <form #loginForm="ngForm" (submit)="onSubmit()">
                                         <div class="form-group">
                                             <label class="small mb-1">Login</label>
-                                            <input type="text" name="username"
-                                                [(ngModel)]="username" autocomplete="off"
-                                                class="form-control py-4"
-                                                placeholder="Digite seu login" />
+                                            <input type="text" name="username" [(ngModel)]="username" autocomplete="off"
+                                                class="form-control py-4" placeholder="Digite seu login"  />
                                         </div>
 
                                         <div class="form-group">
                                             <label class="small mb-1">Senha</label>
-                                            <input type="password" name="password"
-                                                [(ngModel)]="password"
-                                                class="form-control py-4"
-                                                placeholder="Digite sua Senha" />
+                                            <input name="password" type="password" [(ngModel)]="password"
+                                                class="form-control py-4" placeholder="Digite sua Senha"  />
                                         </div>
 
                                         <div class="form-group align-items-center justify-content-between mt-4 mb-0">
@@ -42,14 +38,13 @@
                                                 Enviar
                                             </button>
 
-                                            <button type="button" class="btn btn-success" 
-                                                    (click)="cadastrar()"
-                                                    *ngIf="cadastrando">
+                                            <button type="button" class="btn btn-success" (click)="cadastrar()"
+                                                *ngIf="cadastrando">
                                                 Cadastrar
                                             </button>
 
                                             <button type="button" (click)="cancelaCadastro()"
-                                                    class="btn btn-danger ml-1" *ngIf="cadastrando">
+                                                class="btn btn-danger ml-1" *ngIf="cadastrando">
                                                 Cancelar
                                             </button>
                                         </div>
@@ -58,7 +53,7 @@
 
                                 <div class="card-footer text-center">
                                     <div class="small">
-                                        <a href="#" (click)="preparaCadastrar($event)" >
+                                        <a href="#" (click)="preparaCadastrar($event)">
                                             Não possui Usuário? Cadastre-se!
                                         </a>
                                     </div>
